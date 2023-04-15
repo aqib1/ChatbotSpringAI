@@ -21,20 +21,26 @@ repositories {
     }
 }
 
-val springAiVersion by extra("1.0.1")
+val springAiVersion by extra("1.0.0-M3")
 
 dependencies {
     implementation(platform("org.springframework.ai:spring-ai-bom:${springAiVersion}"))
+
+    // Spring Boot
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.ai:spring-ai-starter-openai")
-    implementation("org.springframework.ai:spring-ai-starter-model-openai")
-    implementation("org.springframework.ai:spring-ai-vector-store")
-    implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
-    implementation("org.springframework.ai:spring-ai-pdf-document-reader")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // Spring AI
+    implementation("org.springframework.ai:spring-ai-pdf-document-reader")
     implementation("org.springframework.ai:spring-ai-pgvector-store-spring-boot-starter")
+    implementation("org.springframework.ai:spring-ai-openai-spring-boot-starter")
+
+    // Optional Docker Compose
+    runtimeOnly("org.springframework.boot:spring-boot-docker-compose")
+    runtimeOnly("org.springframework.ai:spring-ai-spring-boot-docker-compose")
+
+    // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<Test> {
