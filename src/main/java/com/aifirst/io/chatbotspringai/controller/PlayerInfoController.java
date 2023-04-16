@@ -63,7 +63,7 @@ public class PlayerInfoController {
         var textResponse = Optional.ofNullable(
                 chatResponse.getResult()
                         .getOutput()
-                        .getText()
+                        .getContent()
         ).orElseThrow(() -> new RuntimeException(""));
 
         return converter.convert(textResponse);
