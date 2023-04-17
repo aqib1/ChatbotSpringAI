@@ -46,10 +46,10 @@ public class ImageController {
                 new ImagePrompt(
                         prompt,
                         OpenAiImageOptions.builder()
-                                .N(1)
-                                .width(1024)
-                                .height(1024)
-                                .quality("hd")
+                                .withN(1)
+                                .withWidth(1024)
+                                .withHeight(1024)
+                                .withQuality("hd")
                                 .build()
                 )
         );
