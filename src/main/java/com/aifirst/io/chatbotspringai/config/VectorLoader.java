@@ -5,15 +5,14 @@ import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
 import org.springframework.ai.reader.pdf.config.PdfDocumentReaderConfig;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
-import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+//import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 
 import java.io.File;
 
-@Configuration
+//@Configuration
 public class VectorLoader {
     @Value("classpath:/pdf/constitution.pdf")
     private Resource britishConstitution;
@@ -21,7 +20,7 @@ public class VectorLoader {
     @Bean
     public SimpleVectorStore simpleVectorStore(EmbeddingModel embeddingModel) {
         var vectorStore =
-                SimpleVectorStore.builder(embeddingModel).build();
+                new SimpleVectorStore(embeddingModel);
 
         var vectorStoreFile = new File(
                 "/Users/aqibjaved/IdeaProjects/ChatbotSpringAI/src/main/resources/vector_store.json"
