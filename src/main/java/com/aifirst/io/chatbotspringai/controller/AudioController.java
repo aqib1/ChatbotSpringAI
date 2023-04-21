@@ -35,9 +35,9 @@ public class AudioController {
     public String audioTranscription() {
         var options = OpenAiAudioTranscriptionOptions
                 .builder()
-                .language("es")
-                .responseFormat(OpenAiAudioApi.TranscriptResponseFormat.TEXT)
-                .temperature(0.5f)
+                .withLanguage("es")
+                .withResponseFormat(OpenAiAudioApi.TranscriptResponseFormat.TEXT)
+                .withTemperature(0.5f)
                 .build();
         var prompt = new AudioTranscriptionPrompt(
                 new ClassPathResource("voice/text-voice.wav"),
@@ -53,10 +53,10 @@ public class AudioController {
     @GetMapping("/text-to-audio/{prompt}")
     public ResponseEntity<Resource> generateAudio(@PathVariable String prompt) {
         var options = OpenAiAudioSpeechOptions.builder()
-                .model(OpenAiAudioApi.TtsModel.TTS_1.getValue())
-                .responseFormat(OpenAiAudioApi.SpeechRequest.AudioResponseFormat.MP3)
-                .voice(OpenAiAudioApi.SpeechRequest.Voice.ALLOY)
-                .speed(1.0f)
+                .withModel(OpenAiAudioApi.TtsModel.TTS_1.getValue())
+                .withResponseFormat(OpenAiAudioApi.SpeechRequest.AudioResponseFormat.MP3)
+                .withVoice(OpenAiAudioApi.SpeechRequest.Voice.ALLOY)
+                .withSpeed(1.0f)
                 .build();
         var speechPrompt = new SpeechPrompt(prompt, options);
         var response = audioSpeechModel.call(speechPrompt);
