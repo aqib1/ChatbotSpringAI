@@ -48,7 +48,7 @@ public class HelloController {
 
         return response.getResult()
                 .getOutput()
-                .getText();
+                .getContent();
     }
 
     @GetMapping("/celebs")
@@ -63,7 +63,7 @@ public class HelloController {
 
         return response.getResult()
                 .getOutput()
-                .getText();
+                .getContent();
     }
 
 
@@ -84,6 +84,6 @@ public class HelloController {
 
         return response.getResult()
                 .getOutput()
-                .getText();
+                .getContent();
     }
 }
