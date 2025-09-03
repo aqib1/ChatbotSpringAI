@@ -1,5 +1,6 @@
 package com.aifirst.io.chatbotspringai.controller;
 
+import com.aifirst.io.chatbotspringai.model.Achievement;
 import com.aifirst.io.chatbotspringai.model.Player;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -28,6 +28,23 @@ public class PlayerInfoController {
     public PlayerInfoController(ChatClient.Builder builder) {
         this.chatClient = builder.build();
     }
+
+
+    @GetMapping("/achievements")
+    public List<Achievement> getAchievements(@RequestParam String player) {
+        String message = """
+                Provide a List of Achievements for {player}
+                """;
+        PromptTemplate template = new PromptTemplate(message);
+        var prompt = template.create(Map.of("player", player));
+        return Optional.ofNullable(
+                chatClient.prompt(prompt)
+                        .call()
+                        .entity(new ParameterizedTypeReference<List<Achievement>>() {
+                        })
+        ).orElseThrow(() -> new RuntimeException(""));
+    }
+
 
     @GetMapping
     public List<Player> playerInfo(@RequestParam String sport) {
