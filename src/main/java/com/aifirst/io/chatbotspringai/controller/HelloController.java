@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("chat")
 public class HelloController {
@@ -17,6 +19,18 @@ public class HelloController {
 
     @GetMapping
     public String prompt(@RequestParam String message) {
-        return this.chatClient.prompt(message).call().content();
+//        return this.chatClient
+//                .prompt(message)
+//                .call()
+//                .content();
+
+        var response = Optional.ofNullable(this.chatClient
+                .prompt(message)
+                .call()
+                .chatResponse()).orElseThrow(() -> new RuntimeException(""));
+
+        return response.getResult()
+                .getOutput()
+                .getText();
     }
 }
